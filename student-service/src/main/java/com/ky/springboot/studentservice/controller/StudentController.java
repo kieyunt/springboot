@@ -1,12 +1,17 @@
 package com.ky.springboot.studentservice.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ky.springboot.studentservice.model.Course;
 import com.ky.springboot.studentservice.model.Student;
@@ -42,5 +47,14 @@ public class StudentController {
 	public boolean addCourseForStudent(@PathVariable Long studentId, @PathVariable Long courseId) {
 		studentService.addCourse(studentId, studentService.retrieveCourse(courseId));
 		return true;
+	}
+	
+	@PostMapping("/students/{studentId}/courses") 
+	public ResponseEntity<Void> registerStudentForCourse(@PathVariable Long studentId, @RequestBody Course newCourse) {
+		Course course = studentService.addCourse(studentId, newCourse);
+		if(course==null) 
+			return ResponseEntity.noContent().build();
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(course.getId()).toUri();
+		return ResponseEntity.created(location).build();
 	}
 }

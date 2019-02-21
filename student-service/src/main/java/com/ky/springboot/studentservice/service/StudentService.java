@@ -108,8 +108,9 @@ public class StudentService {
 		return null;
 	}
 	
-	public void addCourse(Long studentId, Course course) {
+	public Course addCourse(Long studentId, Course course) {
 		retrieveStudent(studentId).getCourses().add(course);
+		return course;
 	}
 	
 }

@@ -6,6 +6,8 @@ import java.util.function.Predicate;
 
 import org.springframework.stereotype.Component;
 
+import com.ky.springboot.studentservice.exception.CourseNotFoundException;
+import com.ky.springboot.studentservice.exception.StudentNotFoundException;
 import com.ky.springboot.studentservice.model.Course;
 import com.ky.springboot.studentservice.model.Student;
 
@@ -81,7 +83,7 @@ public class StudentService {
 				return student;
 			}
 		}
-		return null;
+		throw new StudentNotFoundException("id-"+studentId);
 	}
 	
 	public List<Course> retrieveStudentCourses(Long studentId) {
@@ -95,7 +97,7 @@ public class StudentService {
 				return course;
 			}
 		}
-		return null;
+		throw new CourseNotFoundException("student id-"+studentId+"; course id-"+courseId);
 	}
 	
 	public Course retrieveCourse(Long courseId) {

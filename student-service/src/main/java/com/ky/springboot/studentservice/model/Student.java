@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Student {
@@ -14,8 +16,15 @@ public class Student {
 	@Id
 	@GeneratedValue
 	private Long id;
+	
+	@NotNull
+	@Size(min=2, message="Name should have at least 2 characters")
 	private String name;
+	
+	@NotNull
+	@Size(min=5, message="Description should have at least 5 characters.")
 	private String description;
+	
 	@OneToMany
 	private List<Course> courses;
 	

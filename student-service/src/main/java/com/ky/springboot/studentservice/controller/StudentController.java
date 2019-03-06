@@ -3,6 +3,8 @@ package com.ky.springboot.studentservice.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,7 +52,7 @@ public class StudentController {
 	}
 	
 	@PostMapping("/students/{studentId}/courses") 
-	public ResponseEntity<Void> registerStudentForCourse(@PathVariable Long studentId, @RequestBody Course newCourse) {
+	public ResponseEntity<Void> registerStudentForCourse(@PathVariable Long studentId, @Valid @RequestBody Course newCourse) {
 		Course course = studentService.addCourse(studentId, newCourse);
 		if(course==null) 
 			return ResponseEntity.noContent().build();

@@ -10,7 +10,11 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
+@ApiModel(description="all about student details")
 public class Student {
 
 	@Id
@@ -18,6 +22,7 @@ public class Student {
 	private Long id;
 	
 	@NotNull
+	@ApiModelProperty(notes="Name should have at least 2 characters")
 	@Size(min=2, message="Name should have at least 2 characters")
 	private String name;
 	

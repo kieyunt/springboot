@@ -19,6 +19,9 @@ import com.ky.springboot.studentservice.model.Course;
 import com.ky.springboot.studentservice.model.Student;
 import com.ky.springboot.studentservice.service.StudentService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class StudentController {
 
@@ -31,6 +34,9 @@ public class StudentController {
 	}
 	
 	@GetMapping("/students/{studentId}")
+	@ApiOperation(value="Find student by Id", 
+			notes="Also returns a link to retrieve all students with rel - all-students",
+			response=Student.class)
 	public Student retrieveStudent(@PathVariable Long studentId) {
 		return studentService.retrieveStudent(studentId);
 	}
